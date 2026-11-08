@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>연세로 3D</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --bg: rgba(16,20,26,.74); --line: rgba(255,255,255,.12); --text: #eef1f4; --muted: #a3acb6; --accent: #f2b84b; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #11151b; color: var(--text);
+    font: 13px/1.45 "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif; }
+  #scene, #scene canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  #labels { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+  .label { position: absolute; left: 0; top: 0; padding: 2px 8px; border-radius: 4px; background: rgba(16,20,26,.8);
+    border-left: 2px solid var(--accent); white-space: nowrap; font-size: 12px; will-change: transform; }
+  #ui.hidden, #labels.hidden { display: none; }
+  .title { position: fixed; left: 16px; top: 14px; text-shadow: 0 1px 6px rgba(0,0,0,.7); }
+  .title h1 { margin: 0; font-size: 19px; font-weight: 700; }
+  .title p { margin: 2px 0 0; color: #dfe4e9; font-size: 12px; }
+  .panel { position: fixed; right: 12px; top: 12px; width: 212px; max-height: calc(100vh - 24px); overflow-y: auto;
+    padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); backdrop-filter: blur(10px); }
+  .panel h2 { margin: 10px 0 6px; font-size: 11px; font-weight: 600; color: var(--muted); }
+  .panel h2:first-child { margin-top: 0; }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 4px; }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+  button { width: 100%; min-height: 30px; padding: 4px 8px; border: 1px solid transparent; border-radius: 5px; cursor: pointer;
+    background: rgba(255,255,255,.08); color: var(--text); font: inherit; text-align: left; }
+  .three button { text-align: center; }
+  button:hover { background: rgba(255,255,255,.16); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  button.on { background: var(--accent); color: #1c1608; font-weight: 700; }
+  button kbd { float: right; font: inherit; opacity: .55; }
+  .hint { position: fixed; left: 16px; bottom: 34px; max-width: calc(100vw - 260px); color: #e4e8ec; font-size: 12px; text-shadow: 0 1px 5px #000; }
+  .credit { position: fixed; left: 16px; bottom: 12px; color: #dce1e6; font-size: 11px; text-shadow: 0 1px 4px #000; }
+  .credit a { color: inherit; }
+  #loader { position: fixed; inset: 0; display: grid; place-items: center; background: #11151b; transition: opacity .4s; }
+  #loader.done { opacity: 0; pointer-events: none; }
+  #loader.error { color: #ffb4a8; }
+  @media (max-width: 640px) {
+    .panel { width: 150px; max-height: 58vh; }
+    .hint { display: none; }
+  }
+</style>
+</head>
+<body>
+<div id="scene"></div>
+<div id="labels"></div>
+<div id="ui">
+  <div class="title"><h1>연세로 3D</h1><p>연세대 정문에서 남쪽 2km · 신촌</p></div>
+  <div class="panel">
+    <h2>시점</h2><div class="grid" id="views"></div>
+    <h2>이동 (V)</h2><div class="grid three" id="modes"></div>
+    <h2>시간 (T)</h2><div class="grid three" id="times"></div>
+  </div>
+  <div class="hint" id="hint"></div>
+  <div class="credit">지도 데이터 © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> · 고도 Terrain Tiles (Mapzen/AWS) · 건물 높이 일부 추정</div>
+</div>
+<div id="loader"><span id="loader-text">불러오는 중…</span></div>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

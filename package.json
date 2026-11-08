@@ -1,0 +1,17 @@
+{
+  "name": "yonsei-ro-3d",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "world": "node tools/build-world.mjs",
+    "dev": "vite --port 5183 --strictPort",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "mp4-muxer": "^5.2.2",
+    "pngjs": "^7.0.0",
+    "three": "^0.187.0",
+    "vite": "^8.3.6"
+  }
+}
